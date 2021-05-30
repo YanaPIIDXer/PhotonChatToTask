@@ -10,9 +10,9 @@ using System;
 namespace PhotonChatToTask.Example
 {
     /// <summary>
-    /// 接続ボタン
+    /// テストボタン
     /// </summary>
-    public class ConnectionButton : MonoBehaviour
+    public class TestButton : MonoBehaviour
     {
         void Awake()
         {
@@ -23,8 +23,16 @@ namespace PhotonChatToTask.Example
                 try
                 {
                     var Token = this.GetCancellationTokenOnDestroy();
+
+                    // 接続
                     await ChatToTaskNetwork.Instance.Connect(Envs.AppID, "1.0", Token);
                     Debug.Log("Hello, PhotonChat!");
+                    await UniTask.Delay(3000);
+
+                    // 切断
+                    await ChatToTaskNetwork.Instance.Disconnect(Token);
+                    Debug.Log("Goodbye, PhotonChat!");
+                    Btn.interactable = true;
                 }
                 catch (Exception e)
                 {
