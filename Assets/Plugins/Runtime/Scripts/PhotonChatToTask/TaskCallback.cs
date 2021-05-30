@@ -15,5 +15,13 @@ namespace PhotonChatToTask
         {
             return Callbacks.Instance.OnConnectedAsync;
         }
+
+        /// <summary>
+        /// 切断された
+        /// </summary>
+        public static UniTask OnDisconnectedAsync()
+        {
+            return Callbacks.Instance.OnDisconnectedAsync;
+        }
     }
 }

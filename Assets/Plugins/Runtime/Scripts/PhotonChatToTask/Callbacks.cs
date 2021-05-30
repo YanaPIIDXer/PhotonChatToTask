@@ -56,9 +56,32 @@ namespace PhotonChatToTask
 
         #endregion
 
+        #region OnDisconnected
+
+        private AsyncReactiveProperty<AsyncUnit> OnDisconnectedProp = null;
+
+        public UniTask OnDisconnectedAsync
+        {
+            get
+            {
+                if (OnDisconnectedProp == null)
+                {
+                    OnDisconnectedProp = new AsyncReactiveProperty<AsyncUnit>(AsyncUnit.Default);
+                    OnDisconnectedProp.AddTo(this.GetCancellationTokenOnDestroy());
+                }
+                return OnDisconnectedProp.WaitAsync();
+            }
+        }
+
         public void OnDisconnected()
         {
+            if (OnDisconnectedProp != null)
+            {
+                OnDisconnectedProp.Value = AsyncUnit.Default;
+            }
         }
+
+        #endregion
 
         public void OnChatStateChange(ChatState state)
         {

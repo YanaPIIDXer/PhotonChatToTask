@@ -28,10 +28,14 @@ namespace PhotonChatToTask
 
             Client = new ChatClient(Callbacks.Instance, ConnectionProtocol.Udp);
 
-            // TODO:Disconnectも考慮するようにする
-            var ConnTask = UniTask.WhenAny(TaskCallback.OnConnectedAsync().AsAsyncUnitUniTask());
+            // TODO:Disconnectも考慮する
+            var ConnTask = UniTask.WhenAny(
+                TaskCallback.OnConnectedAsync().AsAsyncUnitUniTask());
 
-            Client.ConnectUsingSettings(Settings);
+            if (!Client.ConnectUsingSettings(Settings))
+            {
+                throw new Exception("Connection Failed.");
+            }
 
             var (Idx, _) = await ConnTask.AttachExternalCancellation(Token);
 
