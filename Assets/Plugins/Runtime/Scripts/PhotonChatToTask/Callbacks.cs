@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Photon.Chat;
 using ExitGames.Client.Photon;
+using Cysharp.Threading.Tasks;
 
 namespace PhotonChatToTask
 {
@@ -30,22 +29,40 @@ namespace PhotonChatToTask
         }
         private static Callbacks _Instance = null;
 
-        public void DebugReturn(DebugLevel level, string message)
+        #region OnConnected
+
+        private AsyncReactiveProperty<AsyncUnit> OnConnectedProp = null;
+
+        public UniTask OnConnectedAsync
+        {
+            get
+            {
+                if (OnConnectedProp == null)
+                {
+                    OnConnectedProp = new AsyncReactiveProperty<AsyncUnit>(AsyncUnit.Default);
+                    OnConnectedProp.AddTo(this.GetCancellationTokenOnDestroy());
+                }
+                return OnConnectedProp.WaitAsync();
+            }
+        }
+
+        public void OnConnected()
+        {
+            if (OnConnectedProp != null)
+            {
+                OnConnectedProp.Value = AsyncUnit.Default;
+            }
+        }
+
+        #endregion
+
+        public void OnDisconnected()
         {
         }
 
         public void OnChatStateChange(ChatState state)
         {
         }
-
-        public void OnConnected()
-        {
-        }
-
-        public void OnDisconnected()
-        {
-        }
-
         public void OnGetMessages(string channelName, string[] senders, object[] messages)
         {
         }
@@ -72,6 +89,11 @@ namespace PhotonChatToTask
 
         public void OnUserUnsubscribed(string channel, string user)
         {
+        }
+
+        public void DebugReturn(DebugLevel level, string message)
+        {
+            // コイツ扱いどうする・・・？
         }
     }
 }
