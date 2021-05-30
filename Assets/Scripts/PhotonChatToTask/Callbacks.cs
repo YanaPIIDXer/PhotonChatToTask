@@ -5,20 +5,9 @@ using UnityEngine;
 namespace PhotonChatToTask
 {
     /// <summary>
-    /// 接続コールバック
+    /// コールバック
     /// </summary>
-    public class Connection : MonoBehaviour
+    public class Callbacks : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }
