@@ -22,9 +22,13 @@ namespace PhotonChatToTask.Example
                 Btn.interactable = false;
                 try
                 {
-                    var ConnectTask = ChatToTaskNetwork.Instance.Connect(Envs.AppID, "1.0", this.GetCancellationTokenOnDestroy());
-                    await ConnectTask;
+                    var Token = this.GetCancellationTokenOnDestroy();
+                    await ChatToTaskNetwork.Instance.Connect(Envs.AppID, "1.0", Token);
                     Debug.Log("Hello, PhotonChat!");
+                    await UniTask.Delay(2000);
+                    await ChatToTaskNetwork.Instance.Disconnect(Token);
+                    Debug.Log("Goodbye, PhotonChat!");
+                    Btn.interactable = true;
                 }
                 catch (Exception e)
                 {

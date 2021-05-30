@@ -21,7 +21,6 @@ namespace PhotonChatToTask
         /// </summary>
         /// <param name="AppId">AppID</param>
         /// <param name="AppVersion">アプリケーションのバージョン</param>
-        /// <param name="Token">キャンセラレーショントークン</param>
         public async UniTask Connect(string AppId, string AppVersion, CancellationToken Token = default)
         {
             if (Client != null) { return; }
@@ -48,6 +47,19 @@ namespace PhotonChatToTask
                 // TODO:自前のExceptionを定義した方がいいかも知れない
                 throw new Exception("Connection Failed.");
             }
+        }
+
+        /// <summary>
+        /// 切断
+        /// </summary>
+        public async UniTask Disconnect(CancellationToken Token = default)
+        {
+            if (Client == null) { return; }
+
+            Client.Disconnect();
+            await TaskCallback.OnDisconnectedAsync().AttachExternalCancellation(Token);
+
+            Client = null;
         }
 
         #region Singleton
