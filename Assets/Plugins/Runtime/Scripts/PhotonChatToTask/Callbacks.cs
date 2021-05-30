@@ -11,6 +11,25 @@ namespace PhotonChatToTask
     /// </summary>
     public class Callbacks : MonoBehaviour, IChatClientListener
     {
+        /// <summary>
+        /// インスタンス
+        /// </summary>
+        public static Callbacks Instance
+        {
+            get
+            {
+                if (_Instance == null)
+                {
+                    var Obj = new GameObject("PhotonChatCallbacks");
+                    DontDestroyOnLoad(Obj);
+                    _Instance = Obj.AddComponent<Callbacks>();
+
+                }
+                return _Instance;
+            }
+        }
+        private static Callbacks _Instance = null;
+
         public void DebugReturn(DebugLevel level, string message)
         {
         }
