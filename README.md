@@ -1,0 +1,2 @@
+# PhotonChatToTask
+PhotonChatのコールバックをasync/await(UniTask)で待てるようにしてみる
