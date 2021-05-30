@@ -19,10 +19,7 @@ namespace PhotonChatToTask.Example
             Btn.onClick.AddListener(async () =>
             {
                 Btn.interactable = false;
-                await ChatToTaskNetwork.Instance.ConnectUsingSettings(new ChatAppSettings()
-                {
-                    AppIdChat = Envs.AppID
-                }, this.GetCancellationTokenOnDestroy());
+                await ChatToTaskNetwork.Instance.Connect(Envs.AppID, "1.0", this.GetCancellationTokenOnDestroy());
                 Debug.Log("Hello, PhotonChat!");
             });
         }

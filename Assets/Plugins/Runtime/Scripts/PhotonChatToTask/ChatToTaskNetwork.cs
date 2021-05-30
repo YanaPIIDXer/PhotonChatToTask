@@ -17,12 +17,12 @@ namespace PhotonChatToTask
         private ChatClient Client = null;
 
         /// <summary>
-        /// ConnectUsingSettings
+        /// 接続
         /// </summary>
-        /// <param name="Settings">接続の設定</param>
+        /// <param name="AppId">AppID</param>
+        /// <param name="AppVersion">アプリケーションのバージョン</param>
         /// <param name="Token">キャンセラレーショントークン</param>
-        /// <returns>UniTask</returns>
-        public async UniTask ConnectUsingSettings(ChatAppSettings Settings, CancellationToken Token = default)
+        public async UniTask Connect(string AppId, string AppVersion, CancellationToken Token = default)
         {
             if (Client != null) { return; }
 
@@ -30,14 +30,15 @@ namespace PhotonChatToTask
 
             // TODO:Disconnectも考慮する
             var ConnTask = UniTask.WhenAny(
-                TaskCallback.OnConnectedAsync().AsAsyncUnitUniTask());
+                TaskCallback.OnConnectedAsync().AsAsyncUnitUniTask(),
+                TaskCallback.OnDisconnectedAsync().AsAsyncUnitUniTask());
 
-            if (!Client.ConnectUsingSettings(Settings))
+            if (!Client.Connect(AppId, AppVersion, null))
             {
-                throw new Exception("Connection Failed.");
+                throw new Exception("Connection Failed. Reason:Connect method returns false.");
             }
 
-            var (Idx, _) = await ConnTask.AttachExternalCancellation(Token);
+            var (Idx, _, __) = await ConnTask.AttachExternalCancellation(Token);
 
             if (Idx != 0)
             {

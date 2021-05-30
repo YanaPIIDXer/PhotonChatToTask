@@ -48,6 +48,7 @@ namespace PhotonChatToTask
 
         public void OnConnected()
         {
+            Debug.Log("OnConnected");
             if (OnConnectedProp != null)
             {
                 OnConnectedProp.Value = AsyncUnit.Default;
@@ -75,6 +76,7 @@ namespace PhotonChatToTask
 
         public void OnDisconnected()
         {
+            Debug.LogError("OnDisconnected");
             if (OnDisconnectedProp != null)
             {
                 OnDisconnectedProp.Value = AsyncUnit.Default;
@@ -116,7 +118,7 @@ namespace PhotonChatToTask
 
         public void DebugReturn(DebugLevel level, string message)
         {
-            // コイツ扱いどうする・・・？
+            Debug.Log(message);
         }
     }
 }
