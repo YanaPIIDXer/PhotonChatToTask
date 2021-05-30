@@ -36,6 +36,7 @@ namespace PhotonChatToTask
 
             if (!Client.Connect(AppId, AppVersion, null))
             {
+                Client = null;
                 throw new Exception("Connection Failed. Reason:Connect method returns false.");
             }
 
@@ -43,6 +44,7 @@ namespace PhotonChatToTask
 
             if (Idx != 0)
             {
+                Client = null;
                 // TODO:自前のExceptionを定義した方がいいかも知れない
                 throw new Exception("Connection Failed.");
             }
