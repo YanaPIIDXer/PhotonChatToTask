@@ -27,6 +27,7 @@ namespace PhotonChatToTask
             if (Client != null) { return; }
 
             Client = new ChatClient(Callbacks.Instance, ConnectionProtocol.Udp);
+            ClientService.Create(Client);
 
             // TODO:Disconnectも考慮する
             var ConnTask = UniTask.WhenAny(
