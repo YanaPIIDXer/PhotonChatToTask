@@ -21,12 +21,15 @@ namespace PhotonChatToTask
         /// </summary>
         /// <param name="AppId">AppID</param>
         /// <param name="AppVersion">アプリケーションのバージョン</param>
-        public async UniTask Connect(string AppId, string AppVersion, CancellationToken Token = default)
+        /// <param name="EventListener">Taskじゃ捌きようがないコールバックを受け取るためのインタフェース</param>
+        public async UniTask Connect(string AppId, string AppVersion, IClientListener EventListener, CancellationToken Token = default)
         {
             if (Client != null) { return; }
 
             Client = new ChatClient(Callbacks.Instance, ConnectionProtocol.Udp);
             ClientService.Create(Client);
+
+            Callbacks.Instance.EventListener = EventListener;
 
             // TODO:Disconnectも考慮する
             var ConnTask = UniTask.WhenAny(

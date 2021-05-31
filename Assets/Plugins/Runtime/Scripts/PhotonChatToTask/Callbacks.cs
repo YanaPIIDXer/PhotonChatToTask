@@ -48,6 +48,11 @@ namespace PhotonChatToTask
         }
         private static Callbacks _Instance = null;
 
+        /// <summary>
+        /// イベントリスナ
+        /// </summary>
+        public IClientListener EventListener { set; private get; } = null;
+
         #region OnConnected
 
         private AsyncReactiveProperty<AsyncUnit> OnConnectedProp = null;
@@ -191,6 +196,7 @@ namespace PhotonChatToTask
 
         public void DebugReturn(DebugLevel level, string message)
         {
+            EventListener.DebugReturn(level, message);
         }
     }
 }

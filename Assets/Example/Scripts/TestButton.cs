@@ -6,13 +6,14 @@ using PhotonChatToTask;
 using Photon.Chat;
 using Cysharp.Threading.Tasks;
 using System;
+using ExitGames.Client.Photon;
 
 namespace PhotonChatToTask.Example
 {
     /// <summary>
     /// テストボタン
     /// </summary>
-    public class TestButton : MonoBehaviour
+    public class TestButton : MonoBehaviour, IClientListener
     {
         void Awake()
         {
@@ -25,7 +26,7 @@ namespace PhotonChatToTask.Example
                     var Token = this.GetCancellationTokenOnDestroy();
 
                     // 接続
-                    await ChatToTaskNetwork.Instance.Connect(Envs.AppID, "1.0", Token);
+                    await ChatToTaskNetwork.Instance.Connect(Envs.AppID, "1.0", this, Token);
                     Debug.Log("Hello, PhotonChat!");
                     await UniTask.Delay(3000);
 
@@ -65,6 +66,27 @@ namespace PhotonChatToTask.Example
                     Btn.interactable = true;
                 }
             });
+        }
+
+        public void DebugReturn(DebugLevel level, string message)
+        {
+            switch (level)
+            {
+                case DebugLevel.ERROR:
+
+                    Debug.LogError(message);
+                    break;
+
+                case DebugLevel.WARNING:
+
+                    Debug.LogWarning(message);
+                    break;
+
+                default:
+
+                    Debug.Log(message);
+                    break;
+            }
         }
     }
 }
