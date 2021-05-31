@@ -83,6 +83,17 @@ namespace PhotonChatToTask
         }
 
         /// <summary>
+        /// メッセージ送信
+        /// </summary>
+        /// <param name="ChannelName">チャンネル名</param>
+        /// <param name="Message">メッセージ</param>
+        public void PublishMessage(string ChannelName, object Message)
+        {
+            if (Client == null) { throw new Exception("Client is null!"); }
+            Client.PublishMessage(ChannelName, Message);
+        }
+
+        /// <summary>
         /// 切断
         /// </summary>
         public async UniTask Disconnect(CancellationToken Token = default)

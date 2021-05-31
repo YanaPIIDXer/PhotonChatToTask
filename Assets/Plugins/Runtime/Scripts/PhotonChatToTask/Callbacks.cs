@@ -170,11 +170,12 @@ namespace PhotonChatToTask
         }
         #endregion
 
-        public void OnChatStateChange(ChatState state)
+        public void OnGetMessages(string channelName, string[] senders, object[] messages)
         {
+            EventListener.OnGetMessages(channelName, senders, messages);
         }
 
-        public void OnGetMessages(string channelName, string[] senders, object[] messages)
+        public void OnChatStateChange(ChatState state)
         {
         }
 

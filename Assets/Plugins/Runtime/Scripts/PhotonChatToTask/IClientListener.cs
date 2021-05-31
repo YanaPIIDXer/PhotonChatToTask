@@ -12,6 +12,7 @@ namespace PhotonChatToTask
     /// </summary>
     public interface IClientListener
     {
+        void OnGetMessages(string channelName, string[] senders, object[] messages);
         void DebugReturn(DebugLevel level, string message);
     }
 }

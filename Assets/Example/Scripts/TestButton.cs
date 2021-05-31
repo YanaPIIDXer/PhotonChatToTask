@@ -55,6 +55,10 @@ namespace PhotonChatToTask.Example
                     }
                     await UniTask.Delay(3000);
 
+                    // メッセージ送信
+                    ChatToTaskNetwork.Instance.PublishMessage("Channel1", "Hello, Channel1!");
+                    await UniTask.Delay(3000);
+
                     // 切断
                     await ChatToTaskNetwork.Instance.Disconnect(Token);
                     Debug.Log("Goodbye, PhotonChat!");
@@ -86,6 +90,15 @@ namespace PhotonChatToTask.Example
 
                     Debug.Log(message);
                     break;
+            }
+        }
+
+        public void OnGetMessages(string channelName, string[] senders, object[] messages)
+        {
+            Debug.Log("OnGetMessage:" + channelName);
+            for (int i = 0; i < senders.Length; i++)
+            {
+                Debug.Log("\t" + senders[i] + ":" + messages[i].ToString());
             }
         }
     }
