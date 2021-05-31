@@ -50,6 +50,36 @@ namespace PhotonChatToTask
         }
 
         /// <summary>
+        /// チャンネルを購読
+        /// </summary>
+        /// <param name="Channels">購読するチャンネル名のリスト</param>
+        /// <returns>購読結果</returns>
+        public async UniTask<SubscribeResult[]> SubscribeChanel(string[] Channels, CancellationToken Token = default)
+        {
+            if (Client == null) { throw new Exception("Client is null!"); }
+
+            Client.Subscribe(Channels);
+
+            var Results = await TaskCallback.OnSubscribedAsync(Channels.Length);
+            return Results;
+        }
+
+        /// <summary>
+        /// チャンネルの購読を解除
+        /// </summary>
+        /// <param name="Channels">購読を解除するチャンネル名のリスト</param>
+        /// <returns>結果</returns>
+        public async UniTask<string[]> UnsubscribeChannel(string[] Channels, CancellationToken Token = default)
+        {
+            if (Client == null) { throw new Exception("Client is null!"); }
+
+            Client.Unsubscribe(Channels);
+
+            var Results = await TaskCallback.OnUnsubscribedAsync();
+            return Results;
+        }
+
+        /// <summary>
         /// 切断
         /// </summary>
         public async UniTask Disconnect(CancellationToken Token = default)

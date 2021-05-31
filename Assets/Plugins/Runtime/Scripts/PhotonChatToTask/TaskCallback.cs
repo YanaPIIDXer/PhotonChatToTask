@@ -17,6 +17,22 @@ namespace PhotonChatToTask
         }
 
         /// <summary>
+        /// 購読された
+        /// </summary>
+        public static UniTask<SubscribeResult[]> OnSubscribedAsync(int Count)
+        {
+            return Callbacks.Instance.OnSubscribedAsync(Count);
+        }
+
+        /// <summary>
+        /// 購読が解除された
+        /// </summary>
+        public static UniTask<string[]> OnUnsubscribedAsync()
+        {
+            return Callbacks.Instance.OnUnsubscribedAsync;
+        }
+
+        /// <summary>
         /// 切断された
         /// </summary>
         public static UniTask OnDisconnectedAsync()
