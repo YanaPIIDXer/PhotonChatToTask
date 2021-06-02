@@ -14,5 +14,6 @@ namespace PhotonChatToTask
     {
         void OnGetMessages(string channelName, string[] senders, object[] messages);
         void DebugReturn(DebugLevel level, string message);
+        void OnStatusUpdate(string user, int status, bool gotMessage, object message);
     }
 }

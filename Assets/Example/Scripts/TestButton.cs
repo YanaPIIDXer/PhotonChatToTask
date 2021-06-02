@@ -59,6 +59,12 @@ namespace PhotonChatToTask.Example
                     ChatToTaskNetwork.Instance.PublishMessage("Channel1", "Hello, Channel1!");
                     await UniTask.Delay(3000);
 
+                    // ステータス切り替え
+                    ChatToTaskNetwork.Instance.SetOnlineStatus(1);
+                    await UniTask.Delay(3000);
+                    ChatToTaskNetwork.Instance.SetOnlineStatus(0, "Test");
+                    await UniTask.Delay(3000);
+
                     // 切断
                     await ChatToTaskNetwork.Instance.Disconnect(Token);
                     Debug.Log("Goodbye, PhotonChat!");
@@ -99,6 +105,15 @@ namespace PhotonChatToTask.Example
             for (int i = 0; i < senders.Length; i++)
             {
                 Debug.Log("\t" + senders[i] + ":" + messages[i].ToString());
+            }
+        }
+
+        public void OnStatusUpdate(string user, int status, bool gotMessage, object message)
+        {
+            Debug.Log("User:" + user + " Status:" + status);
+            if (gotMessage)
+            {
+                Debug.Log("Message:" + message.ToString());
             }
         }
     }

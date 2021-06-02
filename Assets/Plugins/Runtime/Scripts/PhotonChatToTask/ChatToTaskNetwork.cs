@@ -93,6 +93,24 @@ namespace PhotonChatToTask
         }
 
         /// <summary>
+        /// ステータス変更
+        /// </summary>
+        /// <param name="Status">ステータス</param>
+        /// <param name="Message">メッセージ</param>
+        public void SetOnlineStatus(int Status, string Message = null)
+        {
+            if (Client == null) { throw new Exception("Client is null!"); }
+            if (string.IsNullOrEmpty(Message))
+            {
+                Client.SetOnlineStatus(Status);
+            }
+            else
+            {
+                Client.SetOnlineStatus(Status, Message);
+            }
+        }
+
+        /// <summary>
         /// 切断
         /// </summary>
         public async UniTask Disconnect(CancellationToken Token = default)

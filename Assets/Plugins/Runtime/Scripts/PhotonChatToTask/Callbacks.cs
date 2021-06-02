@@ -185,6 +185,7 @@ namespace PhotonChatToTask
 
         public void OnStatusUpdate(string user, int status, bool gotMessage, object message)
         {
+            EventListener.OnStatusUpdate(user, status, gotMessage, message);
         }
 
         public void OnUserSubscribed(string channel, string user)
