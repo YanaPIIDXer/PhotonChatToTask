@@ -15,6 +15,11 @@ namespace PhotonChatToTask.Example
     /// </summary>
     public class TestButton : MonoBehaviour, IClientListener
     {
+        /// <summary>
+        /// プライベートメッセージ送信対象
+        /// </summary>
+        private string PrivateMessageTarget = "";
+
         void Awake()
         {
             var Btn = GetComponent<Button>();
@@ -57,6 +62,10 @@ namespace PhotonChatToTask.Example
 
                     // メッセージ送信
                     ChatToTaskNetwork.Instance.PublishMessage("Channel1", "Hello, Channel1!");
+                    await UniTask.Delay(3000);
+
+                    // プライベートメッセージ送信
+                    ChatToTaskNetwork.Instance.SendPrivateMessage(PrivateMessageTarget, "Private");
                     await UniTask.Delay(3000);
 
                     // ステータス切り替え
@@ -105,6 +114,7 @@ namespace PhotonChatToTask.Example
             for (int i = 0; i < senders.Length; i++)
             {
                 Debug.Log("\t" + senders[i] + ":" + messages[i].ToString());
+                PrivateMessageTarget = senders[i];
             }
         }
 
@@ -125,6 +135,12 @@ namespace PhotonChatToTask.Example
         public void OnUserUnsubscribed(string channel, string user)
         {
             Debug.Log(user + " Unsubscribed:" + channel);
+        }
+
+        public void OnPrivateMessage(string sender, object message, string channelName)
+        {
+            Debug.Log("Private Message From:" + sender + " Channel:" + channelName);
+            Debug.Log("\t" + message.ToString());
         }
     }
 }

@@ -93,6 +93,17 @@ namespace PhotonChatToTask
         }
 
         /// <summary>
+        /// プライベートメッセージ送信
+        /// </summary>
+        /// <param name="Target">対象</param>
+        /// <param name="Message">メッセージ</param>
+        public void SendPrivateMessage(string Target, object Message)
+        {
+            if (Client == null) { throw new Exception("Client is null!"); }
+            Client.SendPrivateMessage(Target, Message);
+        }
+
+        /// <summary>
         /// ステータス変更
         /// </summary>
         /// <param name="Status">ステータス</param>

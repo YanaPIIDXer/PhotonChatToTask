@@ -181,6 +181,7 @@ namespace PhotonChatToTask
 
         public void OnPrivateMessage(string sender, object message, string channelName)
         {
+            EventListener.OnPrivateMessage(sender, message, channelName);
         }
 
         public void OnStatusUpdate(string user, int status, bool gotMessage, object message)

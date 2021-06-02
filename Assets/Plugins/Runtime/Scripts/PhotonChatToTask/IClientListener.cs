@@ -13,6 +13,7 @@ namespace PhotonChatToTask
     public interface IClientListener
     {
         void OnGetMessages(string channelName, string[] senders, object[] messages);
+        void OnPrivateMessage(string sender, object message, string channelName);
         void DebugReturn(DebugLevel level, string message);
         void OnStatusUpdate(string user, int status, bool gotMessage, object message);
         void OnUserSubscribed(string channel, string user);
