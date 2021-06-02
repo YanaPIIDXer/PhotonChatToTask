@@ -31,7 +31,6 @@ namespace PhotonChatToTask
 
             Callbacks.Instance.EventListener = EventListener;
 
-            // TODO:Disconnectも考慮する
             var ConnTask = UniTask.WhenAny(
                 TaskCallback.OnConnectedAsync().AsAsyncUnitUniTask(),
                 TaskCallback.OnDisconnectedAsync().AsAsyncUnitUniTask());
