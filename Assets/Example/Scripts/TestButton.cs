@@ -116,5 +116,15 @@ namespace PhotonChatToTask.Example
                 Debug.Log("Message:" + message.ToString());
             }
         }
+
+        public void OnUserSubscribed(string channel, string user)
+        {
+            Debug.Log(user + " Subscribed:" + channel);
+        }
+
+        public void OnUserUnsubscribed(string channel, string user)
+        {
+            Debug.Log(user + " Unsubscribed:" + channel);
+        }
     }
 }

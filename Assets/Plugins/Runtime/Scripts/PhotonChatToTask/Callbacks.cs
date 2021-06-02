@@ -190,10 +190,12 @@ namespace PhotonChatToTask
 
         public void OnUserSubscribed(string channel, string user)
         {
+            EventListener.OnUserSubscribed(channel, user);
         }
 
         public void OnUserUnsubscribed(string channel, string user)
         {
+            EventListener.OnUserUnsubscribed(channel, user);
         }
 
         public void DebugReturn(DebugLevel level, string message)
